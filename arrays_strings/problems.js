@@ -136,3 +136,29 @@ function stringCompression(string) {
 
 // console.log(stringCompression("aabcccccaaa"))
 // console.log(stringCompression("abc"))
+
+// 1.7 Rotate Matrix
+// Given an image represented by an N x N matrix, where each pixel in the image is 4 bytes,
+// write a method to rotate the image by 90 degrees.Can you do this in place ?
+
+function rotateMatrix(matrix) {
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix.length; j++) {
+            if (i < j) {
+                [ matrix[i][j], matrix[j][i] ] = [ matrix[j][i], matrix[i][j] ];
+            }
+        }
+    }
+
+    console.log(matrix); 
+
+    const middle = Math.floor(matrix.length / 2);
+    for (let column = 0; column < middle; column++) {
+        for (let row = 0; row < matrix.length; row++) {
+            [matrix[row][column], matrix[row][matrix.length - 1 - column]] = [matrix[row][matrix.length - 1 - column], matrix[row][column]];        
+        }
+    }
+    return matrix;
+}
+
+console.log(rotateMatrix([[1,2,3], [4,5,6], [7,8,9]]))
