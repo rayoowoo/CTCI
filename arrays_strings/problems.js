@@ -112,3 +112,27 @@ function oneAway(string1, string2) {
 // console.log(oneAway("pale", "bale")) // true
 // console.log(oneAway("pale", "bake")) // false
 // console.log(oneAway("pale", "leap")) // false
+
+// 1.6 String Compression
+// Implement a method to perform basic string compression using the counts of repeated characters.
+// For example, the string "aabcccccaaa" would become "a2b1c5a3." If the "compressed" string would 
+// not become smaller than the original string, your method should return the original string.
+// You can assume the string has only uppercase and lowercase letters(a - z). 
+
+function stringCompression(string) {
+    const letters = [];
+    for (let i = 0; i < string.length; i++) {
+        if (letters[letters.length - 2] === string[i]) {
+            let number = parseInt(letters[letters.length - 1]) + 1;
+            letters[letters.length - 1] = number.toString();
+        } else {
+            letters.push(string[i]);
+            letters.push("1");
+        }
+    }
+    if (letters.length > string.length) return string;
+    return letters.join("");
+}
+
+// console.log(stringCompression("aabcccccaaa"))
+// console.log(stringCompression("abc"))
