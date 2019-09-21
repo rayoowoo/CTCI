@@ -91,3 +91,24 @@ function palindromePerm(string) {
 }
 
 // console.log(palindromePerm("Tact Coa"));
+
+// 1.5 One Away
+// There are three types of edits that can be performed on strings: insert a character, 
+// remove a character, or replace a character. Given two strings, write a function to 
+// check if they are one edit(or zero edits) away. 
+
+function oneAway(string1, string2) {
+    if (string1 === string2) return true;
+    for (let i = 0; i < string1.length; i++) {
+        const check1 = string1.slice(0, i) + string1.slice(i + 1);
+        const check2 = string2.slice(0, i) + string2.slice(i + 1);
+        if (check1 === string2 || check2 === string1 || check1 === check2) return true;
+    }
+    return false;
+}
+
+// console.log(oneAway("pale", "ple")) // true
+// console.log(oneAway("pales", "pale")) // true
+// console.log(oneAway("pale", "bale")) // true
+// console.log(oneAway("pale", "bake")) // false
+// console.log(oneAway("pale", "leap")) // false
