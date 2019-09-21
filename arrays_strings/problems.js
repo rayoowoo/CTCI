@@ -161,4 +161,36 @@ function rotateMatrix(matrix) {
     return matrix;
 }
 
-console.log(rotateMatrix([[1,2,3], [4,5,6], [7,8,9]]))
+// console.log(rotateMatrix([[1,2,3], [4,5,6], [7,8,9]]))
+
+// 1.8 Zero Matrix
+// Write an algorithm such that if an element in an MxN matrix 
+// is 0, its entire row and column are set to 0.
+
+function zeroMatrix(matrix) {
+    let rows = new Set();
+    let columns = new Set();
+
+    matrix.forEach( (subArr, i) => {
+        subArr.forEach ( (item, j) => {
+            if (item === 0) {
+                rows.add(i);
+                columns.add(j);
+            }
+        })
+    })
+
+    matrix.forEach((subArr, i) => {
+        if (rows.has(i)) {
+            matrix[i] = matrix[i].map( el => 0);
+        } else {
+            Array.from(columns).forEach( column => {
+                matrix[i][column] = 0;
+            })
+        }
+    })
+
+    return matrix;
+}
+
+console.log(zeroMatrix([ [1,2,3], [4,0,6], [7,8,9]]));
