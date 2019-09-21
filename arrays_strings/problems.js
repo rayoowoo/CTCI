@@ -68,4 +68,26 @@ function URLify(string, length) {
     return characters.join("");
 }
 
-console.log(URLify("Mr John Smith      ", 13));
+// console.log(URLify("Mr John Smith      ", 13));
+
+// 1.4 Palindrome Permutation
+// Given a string, write a function to check if it is a permutation of a palindrome. 
+// A palindrome is a word or phrase that is the same forwards and backwards. 
+// A permutation is a rearrangement of letters. The palindrome does not need 
+// to be limited to just dictionary words. 
+
+function palindromePerm(string) {
+    const check = new Set();
+    for (let i = 0; i < string.length; i++) {
+        char = string[i].toLowerCase();
+        if (char === " ") continue;
+        if (!check.has(char)) {
+            check.add(char);
+        } else {
+            check.delete(char);
+        }
+    }
+    return check.size === 1;
+}
+
+// console.log(palindromePerm("Tact Coa"));
