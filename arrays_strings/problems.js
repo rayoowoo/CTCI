@@ -193,4 +193,30 @@ function zeroMatrix(matrix) {
     return matrix;
 }
 
-console.log(zeroMatrix([ [1,2,3], [4,0,6], [7,8,9]]));
+// console.log(zeroMatrix([ [1,2,3], [4,0,6], [7,8,9]]));
+
+// String Rotation
+// Assume you have a method isSubstring which checks if one word is a substring of another.
+// Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only 
+// one call to isSubstring.
+
+function isSubstring(s1, s2) {
+    return s1.includes(s2);
+}
+
+function stringRotation(s1, s2) {
+    let letters1 = "";
+    let letters2 = "";
+
+    while (s1 !== s2) {
+        letters1 = letters1 + s1[0];
+        letters2 = s2[s2.length - 1] + letters2;
+        s1 = s1.slice(1)
+        s2 = s2.slice(0, s2.length - 1);
+    }
+
+    return letters1 === letters2;
+
+}
+
+console.log(stringRotation("waterbottle", "erbdottlbwata")); // true;
