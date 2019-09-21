@@ -51,3 +51,21 @@ function checkPermutation(string1, string2) {
 
 // console.log(checkPermutation("acdeaaib", "abeadica"))
 
+// 1.3 URLify
+// Write a method to replace all spaces in a string with '%20'. You may assume that the string has 
+// sufficient space at the end to hold the additional characters, and that you are given the
+//  "true" length of the string.
+
+function URLify(string, length) {
+    // The solution below works, but not in constant space. 
+    // Not sure what a in place, constant space JavaScript solution would look like. 
+
+    let characters = string.slice(0, length).split("");
+    characters = characters.map( char => {
+        if (char === " ") return "%20";
+        return char;
+    })
+    return characters.join("");
+}
+
+console.log(URLify("Mr John Smith      ", 13));
