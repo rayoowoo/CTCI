@@ -87,7 +87,7 @@ function palindromePerm(string) {
             check.delete(char);
         }
     }
-    return check.size === 1;
+    return check.size <= 1;
 }
 
 // console.log(palindromePerm("Tact Coa"));
@@ -149,8 +149,6 @@ function rotateMatrix(matrix) {
             }
         }
     }
-
-    console.log(matrix); 
 
     const middle = Math.floor(matrix.length / 2);
     for (let column = 0; column < middle; column++) {
