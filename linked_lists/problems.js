@@ -24,6 +24,13 @@ class LinkedList {
         return result;
     }
 
+    removeNode(node, parent) {
+        if (!parent) return this.removeHead()
+        parent.next = node.next;
+        node.next = null;
+        return node;
+    }
+
     // TODO: Implement the addToTail method here
     addToTail(val) {
         const newNode = new Node(val);
@@ -176,6 +183,14 @@ list.addToTail("e");
 list.addToTail("b");
 list.addToTail("e");
 
+const nums = new LinkedList();
+nums.addToTail(3);
+nums.addToTail(5);
+nums.addToTail(8);
+nums.addToTail(5);
+nums.addToTail(10);
+nums.addToTail(2);
+nums.addToTail(1);
 
 // 2.1 Remove dups
 // Write code to remove duplicates from an unsorted linked list.
@@ -247,29 +262,34 @@ function deleteMiddleNode(linkedList, node) {
 // console.log(deleteMiddleNode(list, list.head.next.next.next.next));
 // console.log(list.print());
 
+// 2.4 Partition
+// Write code to partition a linked list around a value x, such that all nodes less than x come
+// before all nodes greater than or equal to x. If x is contained within the list, the values of
+// x only need to be after the elements less than x. The partition element x can appear anywhere in 
+// the "right partition"; it does not need to appear between the left and right partitions.
+
+function partition(linkedList, part) {
+    const tail = linkedList.tail;
+    let node = linkedList.head;
+    let parent = null;
+    let tailYet = false;
+    while (!tailYet) {
+        const next = node.next;
+        if (node === tail) tailYet = true;
+        const target = linkedList.removeNode(node, parent);
+        if (target.value < part) {
+            linkedList.addToHead(target.value);
+            if (!parent) parent = linkedList.head;
+        } else {
+            linkedList.addToTail(target.value);
+        }
+        node = next;
+    }
 
 
+    return linkedList;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// console.log(nums.print())
+// console.log(partition(nums, 5).print())
