@@ -164,6 +164,18 @@ class LinkedList {
     }
 }
 
+// example linked list
+const list = new LinkedList();
+list.addToTail("a");
+list.addToTail("b");
+list.addToTail("a");
+list.addToTail("c");
+list.addToTail("a");
+list.addToTail("d");
+list.addToTail("e");
+list.addToTail("b");
+list.addToTail("e");
+
 
 // 2.1 Remove dups
 // Write code to remove duplicates from an unsorted linked list.
@@ -188,22 +200,35 @@ function removeDups(linkedList) {
     return linkedList;
 }
 
-const list = new LinkedList();
-list.addToTail("a");
-list.addToTail("b");
-list.addToTail("a");
-list.addToTail("c");
-list.addToTail("a");
-list.addToTail("d");
-list.addToTail("e");
-list.addToTail("b");
-list.addToTail("e");
+// console.log(removeDups(list).print());
 
-console.log(list.print());
-console.log(removeDups(list).print());
+// 2.2 Return Kth to Last
 
+// Implement an algorithm to find the kth to last element of a singly linked list.
 
+function kthToLastWithLength(linkedList, k) {
+    let index = linkedList.size() - k;
+    let node = linkedList.head;
+    while (index) {
+        node = node.next;
+        index--;
+    }
+    return node;
+}
 
+// console.log(kthToLastWithLength(list, 2));
+
+function kthToLastWithoutLength(linkedList, k ) {
+    const nodes = [];
+    let node = linkedList.head;
+    while (node) {
+        nodes.push(node);
+        node = node.next;
+    }
+    return nodes[nodes.length - k];
+}
+
+console.log(kthToLastWithoutLength(list, 2));
 
 
 
