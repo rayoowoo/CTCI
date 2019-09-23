@@ -293,3 +293,52 @@ function partition(linkedList, part) {
 
 // console.log(nums.print())
 // console.log(partition(nums, 5).print())
+
+// 2.5 Sum Lists
+// You have two numbers represented by a linked list, where each node contains a single digit. 
+// The digits are stored in reverse order, such that the 1's digit is at the head of the list. 
+// Write a function that adds the two numbers and returns the sum as a linked list.
+
+const nums1 = new LinkedList();
+nums1.addToTail(5);
+nums1.addToTail(1);
+nums1.addToTail(2);
+
+const nums2 = new LinkedList();
+nums2.addToTail(5);
+nums2.addToTail(4);
+nums2.addToTail(1);
+
+function sumLists(list1, list2) {
+    const newList = new LinkedList();
+    function _sums(node1, node2, carry=0) {
+        if (!node1 && !node2) return null;
+        let val1 = val2 = 0;
+        let next1 = next2 = null;
+        if (node1) {
+            val1 = node1.value;
+            next1 = node1.next;
+        }
+        if (node2) {
+            val2 = node2.value;
+            next2 = node2.next;
+        }
+        let totalVal = val1 + val2 + carry;
+        carry = 0;
+
+        if (totalVal >= 10) {
+            totalVal -= 10;
+            carry = 1;
+        }
+
+        newList.addToTail(totalVal);
+        const newTail = newList.tail;
+        newTail.next = _sums(next1, next2, carry);
+        return newTail;
+    }
+    
+    _sums(list1.head, list2.head)
+    return newList;
+}
+
+console.log(sumLists(nums1, nums2).print())
