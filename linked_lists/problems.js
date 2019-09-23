@@ -228,7 +228,24 @@ function kthToLastWithoutLength(linkedList, k ) {
     return nodes[nodes.length - k];
 }
 
-console.log(kthToLastWithoutLength(list, 2));
+// console.log(kthToLastWithoutLength(list, 2));
+
+// 2.3 Delete Middle Node
+// Implement an algorithm to delete a node in the middle (i.e.any node but the first and last node,
+// not necessarily the exact middle) of a singly linked list, given only access to that node.
+
+function deleteMiddleNode(linkedList, node) {
+    let check = linkedList.head;
+    while (check.next !== node) {
+        check = check.next;
+    }
+    check.next = node.next;
+    node.next = null;
+}
+
+// console.log(list.print());
+// console.log(deleteMiddleNode(list, list.head.next.next.next.next));
+// console.log(list.print());
 
 
 
