@@ -417,3 +417,38 @@ function intersection(list1, list2) {
 
 // console.log(list2.includes(e));
 // console.log(intersection(list1, list2));
+
+// 2.8 Loop Detection
+// Given a circular linked list, implement an algorithm that returns the node at the beginning 
+// of the loop. (corrupted linked list)
+
+function loopDetection(linkedList) {
+    let node = linkedList.head;
+    let visited = new Set();
+    while (node) {
+        if (visited.has(node)) return node;
+        visited.add(node);
+        node = node.next;
+    }
+    return null;
+}
+
+// const a = new Node("a");
+// const b = new Node("b");
+// const c = new Node("c");
+// const d = new Node("d");
+// const e = new Node("e");
+// const f = new Node("f");
+
+// a.next = b;
+// b.next = c;
+// c.next = d;
+// d.next = e;
+// e.next = d;
+
+// const corrupt = new LinkedList();
+// corrupt.head = a;
+
+// console.log(loopDetection(corrupt));
+
+
