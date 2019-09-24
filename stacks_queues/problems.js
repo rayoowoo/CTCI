@@ -110,6 +110,9 @@ class SetOfStacks {
 
     pop() {
         this.stacks[this.stacks.length - 1].pop();
+        if (!this.stacks[this.stacks.length - 1].length) {
+            this.stacks = this.stacks.slice(0, [this.stacks.length - 1]);
+        }
     }
 }
 
@@ -120,5 +123,8 @@ set.push(3);
 set.push(4);
 
 set.pop();
+set.pop();
+
+set.push(5);
 
 console.log(set.stacks);
