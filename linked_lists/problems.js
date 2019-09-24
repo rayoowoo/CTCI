@@ -336,9 +336,37 @@ function sumLists(list1, list2) {
         newTail.next = _sums(next1, next2, carry);
         return newTail;
     }
-    
+
     _sums(list1.head, list2.head)
     return newList;
 }
 
-console.log(sumLists(nums1, nums2).print())
+// console.log(sumLists(nums1, nums2).print())
+
+
+// 2.6 Palindromes
+// Implement a function to check if a linked list is a palindrome.
+
+const test = new LinkedList();
+test.addToTail("a");
+test.addToTail("b");
+test.addToTail("d");
+test.addToTail("b");
+test.addToTail("a");
+
+function palindrome(linkedList) {
+    const arr = [];
+    let node = linkedList.head;
+    while (node) {
+        arr.push(node.value);
+        node = node.next;
+    }
+    for (let i = 0; i < Math.floor(arr.length); i++) {
+        if (arr[i] !== arr[arr.length - 1 - i]) return false;
+    }
+    return true;
+}
+
+// console.log(palindrome(list));
+// console.log(palindrome(nums));
+// console.log(palindrome(test));
