@@ -32,7 +32,7 @@ class Stack {
         this.top = null;
         this.bottom = null;
         this.length = 0;
-        this.min = -Infinity;
+        this.min = Infinity;
     }
 
     min() {
@@ -40,7 +40,7 @@ class Stack {
     }
 
     getMin() {
-        let min = -Infinity;
+        let min = Infinity;
         let node = this.top;
         while(node) {
             if (node.value < min) {
@@ -93,3 +93,32 @@ class Stack {
 
 }
 
+// 3.3 Stack of Plates
+class SetOfStacks {
+    constructor(size) {
+        this.stacks = [];
+        this.capacity = size;
+    }
+
+    push(val) {
+        if (!this.stacks.length || this.stacks[this.stacks.length - 1].length === this.capacity) {
+            const newStack = new Stack();
+            this.stacks.push(newStack);
+        }
+        this.stacks[this.stacks.length - 1].push(val);
+    }
+
+    pop() {
+        this.stacks[this.stacks.length - 1].pop();
+    }
+}
+
+const set = new SetOfStacks(2);
+set.push(1);
+set.push(2);
+set.push(3);
+set.push(4);
+
+set.pop();
+
+console.log(set.stacks);
