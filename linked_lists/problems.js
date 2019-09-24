@@ -14,6 +14,17 @@ class LinkedList {
         this.length = 0;
     }
 
+    includes(targetNode) {
+        let node = this.head;
+        while(node) {
+            if (node === targetNode) {
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
+    }
+
     print() {
         let node = this.head;
         const result = [];
@@ -285,8 +296,6 @@ function partition(linkedList, part) {
         }
         node = next;
     }
-
-
     return linkedList;
 }
 
@@ -370,3 +379,41 @@ function palindrome(linkedList) {
 // console.log(palindrome(list));
 // console.log(palindrome(nums));
 // console.log(palindrome(test));
+
+// 2.7 Intersection
+// Given two (singly) linked lists, determine if the two lists intersect. Return the 
+// intersection node. Note that the intersection is defined based on reference, not value. 
+// That is, if the kth node of the first linked list is the exact same node (by reference) 
+// as the jth node of the second linked list, then they are intersecting.
+
+function intersection(list1, list2) {
+    let node = list1.head;
+    while (node) {
+        if (list2.includes(node)) return node;
+        node = node.next;
+    }
+    return node;
+}
+
+// const a = new Node("a");
+// const b = new Node("b");
+// const c = new Node("c");
+// const d = new Node("d");
+// const e = new Node("e");
+// const f = new Node("f");
+
+// a.next = b;
+// b.next = c;
+// c.next = d;
+// e.next = d;
+// d.next = f;
+
+// const list1 = new LinkedList();
+// const list2 = new LinkedList();
+// list1.head = a;
+// list1.tail = f;
+// list2.head = e;
+// list2.tail = f;
+
+// console.log(list2.includes(e));
+// console.log(intersection(list1, list2));
