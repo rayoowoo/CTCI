@@ -193,3 +193,91 @@ function sortStack(stack) {
 
 // console.log(stack.print());
 // console.log(sortStack(stack).print());
+
+// 3.6 Animal Shelter
+// An animal shelter, which holds only dogs and cats, operates on a strictly "first in, first out" basis.
+// People must adopt either the "oldest" (based on arrival time) of all animals at the shelter, or they 
+// can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type).
+// They cannot select which specific animal they would like. Create the data structures to maintain this 
+// system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. You may use
+// the build-in LinkedList data structure. 
+
+class Dog {
+    constructor(name) {
+        this.name = name;
+        this.next = null;
+    }
+}
+
+class Cat {
+    constructor(name) {
+        this.name = name;
+        this.next = null;
+    }
+}
+
+class AnimalShelter {
+    constructor() {
+        this.cats = [];
+        this.dogs = [];
+        this.animals = [];
+    }
+
+    enqueue(animal) {
+        if (animal instanceof Dog) {
+            this.dogs.push(animal);
+        } else if (animal instanceof Cat) {
+            this.cats.push(animal);
+        }
+        this.animals.push(animal);
+    }
+
+    dequeueAny() {
+        const animal = this.animals.shift();
+        if (animal instanceof Dog) {
+            this.dogs.shift();
+        } else {
+            this.cats.shift();
+        }
+    }
+
+    dequeueDog() {
+        const dog = this.dogs.shift();
+        const index = this.animals.indexOf(dog);
+        this.animals = this.animals.slice(0, index).concat(this.animals.slice(index + 1));
+    }
+
+    dequeueCat() {
+        const cat = this.cats.shift();
+        const index = this.animals.indexOf(cat);
+        this.animals = this.animals.slice(0, index).concat(this.animals.slice(index + 1));
+    }
+
+    print() {
+        console.log(this.animals);
+    }
+}
+
+// const dog1 = new Dog("joe");
+// const dog2 = new Dog("freeman");
+// const dog3 = new Dog("kokubun");
+// const dog4 = new Dog("tunggal");
+
+// const cat1 = new Cat("caleb");
+// const cat2 = new Cat("sam");
+
+// const shelter = new AnimalShelter();
+
+// shelter.enqueue(dog1);
+// shelter.enqueue(dog2);
+// shelter.enqueue(cat1);
+// shelter.enqueue(dog3);
+// shelter.enqueue(dog4);
+// shelter.enqueue(cat2);
+
+// shelter.print();
+// console.log("-----");
+
+// shelter.dequeueDog();
+// shelter.print();
+// console.log("-----");
