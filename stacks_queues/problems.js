@@ -35,6 +35,16 @@ class Stack {
         this.min = Infinity;
     }
 
+    print() {
+        let node = this.top;
+        let arr = [];
+        while (node) {
+            arr.push(node.value);
+            node = node.next;
+        }
+        return arr;
+    }
+
     min() {
         return this.min;
     }
@@ -53,6 +63,14 @@ class Stack {
 
     size() {
         return this.length;
+    }
+
+    peek() {
+        return this.top;
+    }
+
+    isEmpty() {
+        return !this.length;
     }
 
     push(value) {
@@ -116,15 +134,62 @@ class SetOfStacks {
     }
 }
 
-const set = new SetOfStacks(2);
-set.push(1);
-set.push(2);
-set.push(3);
-set.push(4);
+// const set = new SetOfStacks(2);
+// set.push(1);
+// set.push(2);
+// set.push(3);
+// set.push(4);
 
-set.pop();
-set.pop();
+// set.pop();
+// set.pop();
 
-set.push(5);
+// set.push(5);
 
-console.log(set.stacks);
+// console.log(set.stacks);
+
+// 3.5 Sort Stack
+// Write a program to sort a stack such that the smallest items are on the top. You can use an
+// additional temporary stack, but you may not copy the elements into any other data structure
+// (such as an array).The stack supports the following operations: push, pop, peek, and isEmpty.
+
+function swapTops(stack1, stack2) {
+    const firstPop = stack1.pop();
+    const secondPop = stack2.pop();
+    stack2.push(firstPop);
+    stack1.push(secondPop);
+}
+
+function sortStack(stack) {
+    const newStack = new Stack();
+    newStack.push(stack.pop());
+    while (!stack.isEmpty()) {
+        newStack.push(stack.pop());
+        let loop = false;
+        if (newStack.top.next) {
+            if (newStack.top.value > newStack.top.next.value) loop = true;
+        }
+        while (loop) {
+            loop = false;
+            stack.push(newStack.pop());
+            swapTops(stack, newStack);
+            if (newStack.top.next) {
+                if (newStack.top.value > newStack.top.next.value) loop = true;
+            }
+        }
+    }
+    return newStack;
+}
+
+// const stack = new Stack();
+
+// stack.push(5);
+// stack.push(3);
+// stack.push(4);
+// stack.push(2);
+// stack.push(9);
+// stack.push(8);
+// stack.push(7);
+// stack.push(1);
+
+// console.log(stack.print());
+// console.log(sortStack(stack).print());
