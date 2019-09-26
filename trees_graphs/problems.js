@@ -94,7 +94,7 @@ function successor(node) {
     return null; // catch all
 }
 
-// Build Order
+// 4.7 Build Order
 // You are given a list of projects and a list of dependencies (which is a list of pairs of projects, 
 // where the second project is dependent on the first project). All of a project's dependencies must be 
 // built before the project is. Find a build order that will allow the projects to be built. If there is 
@@ -105,7 +105,6 @@ const deps = [["a", "d"], ["f", "b"], ["b", "d"], ["f", "a"], ["d", "c"]]
 
 function buildOrder(projects, dependencies) {
     const depList = {};
-    const installs = {};
     const order = [];
     const done = new Set();
 
@@ -115,12 +114,6 @@ function buildOrder(projects, dependencies) {
         } else {
             depList[pair[1]] = [pair[0]];
         }
-
-        if (installs[pair[0]]) {
-            installs[pair[0]].push(pair[1]);
-        } else {
-            installs[pair[0]] = [pair[1]];
-        }
     })
 
     projects.forEach( project => {
@@ -129,14 +122,10 @@ function buildOrder(projects, dependencies) {
             order.push(project);
             done.add(project);
         }
-        if (!installs[project]) {
-            installs[project] = [];
-        }
     })
 
     console.log("order", order);
     console.log("dep", depList);
-    console.log("int", installs);
     
     let stuck = false;
     while (!stuck && order.length < projects.length) {
@@ -153,9 +142,115 @@ function buildOrder(projects, dependencies) {
 
     if (stuck) return "error";
     return order;
-    
-    
-
 }
 
-console.log(buildOrder(proj, deps));
+// console.log(buildOrder(proj, deps));
+
+// 4.8 First Common Ancestor
+// Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree.
+// Avoid storing additional nodes in a data structure.NOTE: This is not necessarily a binary search tree.
+
+// with added DSA
+function firstCommonAncestorWithDSA(tree, node1, node2) {
+    
+    
+    const queue = [tree];
+    let firstRoot;
+
+    while (queue.length) {
+        const check = queue.shift();
+        if (_checkTree(check)) firstRoot = check;
+        if (check.left) queue.push(check.left);
+        if (check.right) queue.push(check.right);
+    }
+
+    function _checkTree(tree) {
+        if (!tree) return false;
+        let found1 = false;
+        let found2 = false;
+        const nodes = [tree]; //queue
+        while (nodes.length) {
+            const node = nodes.shift();
+            if (node.val === node1.val) found1 = true;
+            if (node.val === node2.val) found2 = true;
+            if (node.left) nodes.push(node.left);
+            if (node.right) nodes.push(node.right);
+        }
+        return found1 && found2;
+    }
+
+    return firstRoot;
+}
+
+
+
+function dfs(tree, value1, value2) {
+    function _traversal(tree, value1, value2) {
+        if (!tree) return [0, 0];
+        if (tree.val === value1 && tree.val === value2) return [1, 1];
+        if (tree.val === value1) return [1, 0];
+        if (tree.val === value2) return [0, 1];
+        const left = _traversal(tree.left, value1, value2);
+        const right = _traversal(tree.right, value1, value2);
+        return [left[0] + right[0], left[1] + right[1]];
+    }
+    const result = _traversal(tree, value1, value2);
+    if (result[0] + result[1] === 2) return true;
+    return false;
+}
+
+function firstCommonAncestor(tree, node1, node2) {
+    let firstRoot = null;
+    
+    function _loop (tree, node1, node2) {
+        const result = dfs(tree, node1.val, node2.val);
+        if (result) firstRoot = tree;
+        if (tree.left) _loop(tree.left, node1, node2);
+        if (tree.right) _loop(tree.right, node1, node2);
+    }
+
+    _loop(tree, node1, node2);
+    return firstRoot;
+}
+
+class TreeNode {
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+const a = new TreeNode("a");
+const b = new TreeNode("b");
+const c = new TreeNode("c");
+const d = new TreeNode("d");
+const e = new TreeNode("e");
+const f = new TreeNode("f");
+const g = new TreeNode("g");
+const h = new TreeNode("h");
+const i = new TreeNode("i");
+const j = new TreeNode("j");
+const k = new TreeNode("k");
+const l = new TreeNode("l");
+const m = new TreeNode("m");
+const n = new TreeNode("n");
+const o = new TreeNode("o");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.left = f;
+c.right = g;
+d.left = h;
+d.right = i;
+e.left = j;
+e.right = k;
+f.left = l;
+f.right = m;
+g.left = n;
+g.right = o;
+
+console.log(firstCommonAncestor(a, d, e).val)
+
