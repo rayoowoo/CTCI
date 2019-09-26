@@ -93,3 +93,69 @@ function successor(node) {
     if (parent.right) return right; // if we find a node in which it is its parent's left, we want the parent's right
     return null; // catch all
 }
+
+// Build Order
+// You are given a list of projects and a list of dependencies (which is a list of pairs of projects, 
+// where the second project is dependent on the first project). All of a project's dependencies must be 
+// built before the project is. Find a build order that will allow the projects to be built. If there is 
+// no valid build order, return an error. 
+
+const proj = ["a", "b", "c", "d", "e", "f"];
+const deps = [["a", "d"], ["f", "b"], ["b", "d"], ["f", "a"], ["d", "c"]]
+
+function buildOrder(projects, dependencies) {
+    const depList = {};
+    const installs = {};
+    const order = [];
+    const done = new Set();
+
+    dependencies.forEach( pair => {
+        if (depList[pair[1]]) {
+            depList[pair[1]].push(pair[0]);
+        } else {
+            depList[pair[1]] = [pair[0]];
+        }
+
+        if (installs[pair[0]]) {
+            installs[pair[0]].push(pair[1]);
+        } else {
+            installs[pair[0]] = [pair[1]];
+        }
+    })
+
+    projects.forEach( project => {
+        if (!depList[project]) {
+            depList[project] = [];
+            order.push(project);
+            done.add(project);
+        }
+        if (!installs[project]) {
+            installs[project] = [];
+        }
+    })
+
+    console.log("order", order);
+    console.log("dep", depList);
+    console.log("int", installs);
+    
+    let stuck = false;
+    while (!stuck && order.length < projects.length) {
+        const currLength = order.length;
+        projects.forEach(project => {
+            if (done.has(project)) return;
+            if (depList[project].every(el => done.has(el))) {
+                order.push(project);
+                done.add(project);
+            }
+        })
+        if (currLength === order.length) stuck = true;
+    }
+
+    if (stuck) return "error";
+    return order;
+    
+    
+
+}
+
+console.log(buildOrder(proj, deps));
