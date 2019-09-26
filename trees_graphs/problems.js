@@ -221,36 +221,36 @@ class TreeNode {
     }
 }
 
-const a = new TreeNode("a");
-const b = new TreeNode("b");
-const c = new TreeNode("c");
-const d = new TreeNode("d");
-const e = new TreeNode("e");
-const f = new TreeNode("f");
-const g = new TreeNode("g");
-const h = new TreeNode("h");
-const i = new TreeNode("i");
-const j = new TreeNode("j");
-const k = new TreeNode("k");
-const l = new TreeNode("l");
-const m = new TreeNode("m");
-const n = new TreeNode("n");
-const o = new TreeNode("o");
+// const a = new TreeNode("a");
+// const b = new TreeNode("b");
+// const c = new TreeNode("c");
+// const d = new TreeNode("d");
+// const e = new TreeNode("e");
+// const f = new TreeNode("f");
+// const g = new TreeNode("g");
+// const h = new TreeNode("h");
+// const i = new TreeNode("i");
+// const j = new TreeNode("j");
+// const k = new TreeNode("k");
+// const l = new TreeNode("l");
+// const m = new TreeNode("m");
+// const n = new TreeNode("n");
+// const o = new TreeNode("o");
 
-a.left = b;
-a.right = c;
-b.left = d;
-b.right = e;
-c.left = f;
-c.right = g;
-d.left = h;
-d.right = i;
-e.left = j;
-e.right = k;
-f.left = l;
-f.right = m;
-g.left = n;
-g.right = o;
+// a.left = b;
+// a.right = c;
+// b.left = d;
+// b.right = e;
+// c.left = f;
+// c.right = g;
+// d.left = h;
+// d.right = i;
+// e.left = j;
+// e.right = k;
+// f.left = l;
+// f.right = m;
+// g.left = n;
+// g.right = o;
 
 // console.log(firstCommonAncestor(a, d, e).val)
 
@@ -307,4 +307,53 @@ function checkSubtree(tree1, tree2) {
     return false;
 }
 
-console.log(checkSubtree(b, f));
+// console.log(checkSubtree(b, f));
+
+// 4.12 Paths with Sum 
+// You are given a binary tree in which each node contains an integer value(which might be positive or negative).
+// Design an algorithm to count the number of paths that sum to a given value.The path does not need to start or end 
+// at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes). 
+
+function pathsWithSum(tree, target, currentSum=0) {
+    if (!tree) return 0;
+    let count = 0;
+    if (currentSum + tree.val === target) count ++;
+    return count 
+        + pathsWithSum(tree.left, target, tree.val) 
+        + pathsWithSum(tree.right, target, tree.val) 
+        + pathsWithSum(tree.left, target, 0)
+        + pathsWithSum(tree.right, target, 0)
+}
+
+const a = new TreeNode(1);
+const b = new TreeNode(2);
+const c = new TreeNode(-5);
+const d = new TreeNode(-3);
+const e = new TreeNode(7);
+const f = new TreeNode(8);
+const g = new TreeNode(-11);
+const h = new TreeNode(10);
+const i = new TreeNode(5);
+const j = new TreeNode(7);
+const k = new TreeNode(-1);
+const l = new TreeNode(-6);
+const m = new TreeNode(18);
+const n = new TreeNode(9);
+const o = new TreeNode(6);
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.left = f;
+c.right = g;
+d.left = h;
+d.right = i;
+e.left = j;
+e.right = k;
+f.left = l;
+f.right = m;
+g.left = n;
+g.right = o;
+
+console.log(pathsWithSum(a, 10))
