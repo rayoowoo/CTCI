@@ -67,3 +67,29 @@ function listDepths(tree) {
 
     return lists;
 }
+
+// 4.5 Validate BST
+// Implement a function to check if a binary tree is a binary search tree.
+
+// The tree is a binary search tree if the inorder tree traversal is sorted correctly.
+
+// 4.6 Successor
+// Write an algorithm to find the "next" node (i.e. in-order successor) of a given node in a 
+// binary search tree. You may assume that each node has a link to its parent.
+
+function successor(node) {
+    let parent = node.parent;
+    if (!parent) return node.right; // node is the root node
+    if (node === parent.left) {
+        if (parent.right) return parent.right;
+        return null;
+    }
+
+    while (node === parent.right) { // go up the tree until we find a node that its parent's left node
+        [node, parent] = [parent, parent.parent];
+    }
+
+    if (!parent) return null; // only if we reach the root node, in which case the original node is the last
+    if (parent.right) return right; // if we find a node in which it is its parent's left, we want the parent's right
+    return null; // catch all
+}
