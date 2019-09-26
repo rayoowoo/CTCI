@@ -245,12 +245,12 @@ c.left = f;
 c.right = g;
 d.left = h;
 d.right = i;
-// e.left = j;
-// e.right = k;
-// f.left = l;
-// f.right = m;
-// g.left = n;
-// g.right = o;
+e.left = j;
+e.right = k;
+f.left = l;
+f.right = m;
+g.left = n;
+g.right = o;
 
 // console.log(firstCommonAncestor(a, d, e).val)
 
@@ -283,3 +283,28 @@ function bstSequence(tree) {
 }
 
 // console.log(bstSequence(a))
+
+// 4.10 Check Subtree
+// T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2
+// is a subtree of T1.
+
+// A tree T2 is a subtree of T1 if there exists a node n in T1 such that the subtree of n is identical to T2.That is,
+// if you cut off the tree at node n, the two trees would be identical.
+
+function checkSubtree(tree1, tree2) {
+    if (!tree1 && !tree2) return true;
+    if ((!tree1 && !!tree2) || (!!tree1 && !tree2)) return false;
+    const queue = [tree1];
+    while (queue.length) {
+        const check = queue.shift();
+        if (check.val === tree2.val) {
+            return checkSubtree(check.left, tree2.left) && checkSubtree(check.right, tree2.right);
+        } else {
+            if (check.left) queue.push(check.left);
+            if (check.right) queue.push(check.right);
+        }
+    }
+    return false;
+}
+
+console.log(checkSubtree(b, f));
