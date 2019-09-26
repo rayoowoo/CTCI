@@ -245,12 +245,41 @@ c.left = f;
 c.right = g;
 d.left = h;
 d.right = i;
-e.left = j;
-e.right = k;
-f.left = l;
-f.right = m;
-g.left = n;
-g.right = o;
+// e.left = j;
+// e.right = k;
+// f.left = l;
+// f.right = m;
+// g.left = n;
+// g.right = o;
 
-console.log(firstCommonAncestor(a, d, e).val)
+// console.log(firstCommonAncestor(a, d, e).val)
 
+// 4.9 BST Sequence
+// A binary search tree was created by traversing through an array from left to right and inserting each element.
+// Given a binary search tree with distinct elements, print all possible arrays that could have led to this tree. 
+
+
+function bstSequence(tree) {
+    if (!tree) return [[]];
+    const arrays = [];
+    const left = bstSequence(tree.left);
+    const right = bstSequence(tree.right);
+    // if (!left.length && right.length) {
+    //     arrays.push(right);
+    // } else if (!right.length && left.length ) {
+    //     arrays.push(left);
+    if (!tree.left && !tree.right) {
+        arrays.push([tree.val]);
+    } else {
+        left.forEach(subArr1 => {
+            right.forEach(subArr2 => {
+                arrays.push([tree.val].concat(subArr1.concat(subArr2)));
+                arrays.push([tree.val].concat(subArr2.concat(subArr1)));
+
+            })
+        })
+    }
+    return arrays;
+}
+
+// console.log(bstSequence(a))
