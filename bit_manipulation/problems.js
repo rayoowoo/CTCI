@@ -163,3 +163,35 @@ function pairSwap(b1) {
 }
 
 // console.log(pairSwap(0b10110011101101).toString(2))
+
+// 5.8 Draw Line
+
+function drawLine(screen, width, x1, x2, y) {
+    const widthByArray = width / 8;
+    const startIdx = y * widthByArray;
+    const endIdx = startIdx + widthByArray;
+    let x = 0;
+
+    console.log(screen);
+    for (let i = startIdx; i < endIdx; i++) {
+        // screen[i] = (~screen[i]) >>> 0; // this turns the whole row into a line. 
+        for (let j = 0; j < 8; j++) {
+            console.log(x);
+            if (x >= x1 && x <= x2) {
+                screen[i] = flip(screen[i], 7 - j);
+            }
+            x++;
+            if (x > x2) return screen;
+        }
+    }
+}
+
+function flip(binaryNumber, position) {
+    const bitMask = 1 << position;
+    return binaryNumber | bitMask;
+}
+
+console.log(drawLine([0b00000000, 0b00000000, 0b00000000, 0b00000000,
+                      0b00000000, 0b00000000, 0b00000000, 0b00000000,
+                      0b00000000, 0b00000000, 0b00000000, 0b00000000,
+                      0b00000000, 0b00000000, 0b00000000, 0b00000000], 32, 3, 7, 2))
