@@ -20,10 +20,23 @@ function insertion(N, M, i, j) {
 // cannot be represented accurately in binary with at most 32 characters, print "ERROR".
 
 function binaryToString(N, b) {
-    // const actual = 
+    let binaryResult = "0.";
+    for (let i = 1; i <= 32; i++) {
+        const factor = 1/(2**i)
+        if (N >= factor) {
+            N -= factor;
+            binaryResult += "1";
+        } else {
+            binaryResult += "0";
+        }
+        if (!N) return binaryResult;
+    }
+    return "ERROR";
 }
 
-// 5.3
+// console.log(binaryToString(0.725, 10))
+
+// 5.3 Flip Bit to Win
 
 function flipBit(n) {
     const string = n.toString(2);
@@ -50,4 +63,5 @@ function flipBit(n) {
     return longest;
 }
 
-console.log(flipBit(1775))
+// console.log(flipBit(1775))
+
