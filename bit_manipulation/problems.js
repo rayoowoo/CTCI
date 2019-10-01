@@ -101,4 +101,31 @@ function nextNumber(num) {
     console.log(parseInt(nextLarge, 2));
 }
 
-nextNumber(75);
+// nextNumber(75);
+
+// 5.6 Conversion
+// Write a function to determine the number of bits you would need to flip to convert integer A to integer B.
+
+function conversion(intA, intB) {
+    let strA = intA.toString(2);
+    let strB = intB.toString(2);
+
+    let total = 0;
+
+    if (strA.length > strB.length) {
+        const diff = strA.length - strB.length;
+        total += diff;
+        strA = strA.slice(diff);
+    } else if (strB.length > strA.length) {
+        const diff = strB.length - strA.length;
+        total += diff;
+        strB = strB.slice(diff);
+    }
+    for (let i = 0; i < strA.length; i++) {
+        if (strA[i] !== strB[i]) total++;
+    }
+
+    return total;
+}
+
+console.log(conversion(29, 15))
