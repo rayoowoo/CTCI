@@ -128,4 +128,38 @@ function conversion(intA, intB) {
     return total;
 }
 
-console.log(conversion(29, 15))
+// console.log(conversion(29, 15))
+
+// 5.7 Pairwise Swap
+
+function pairSwap(b1) {
+    // creating the mask
+    let stringA = "";
+    let stringB = "";
+    const length = b1.toString(2).length - 1;
+    for (let i = length; i >= 0; i--) {
+        if ((length - i) % 2 === 0) {
+            stringA = "1" + stringA;
+            stringB = "0" + stringB;
+        } else {
+            stringA = "0" + stringA;
+            stringB = "1" + stringB;
+        }
+    }
+    let maskA = parseInt(stringA, 2);
+    let maskB = parseInt(stringB, 2);
+
+    console.log("maskA", maskA.toString(2));
+    console.log("maskB", maskB.toString(2));
+
+    // operators
+    const intermA = (b1 & maskA) << 1;
+    const intermB = (b1 & maskB) >>> 1;
+
+    console.log("A", intermA.toString(2));
+    console.log("B", intermB.toString(2));
+
+    return intermA | intermB;
+}
+
+// console.log(pairSwap(0b10110011101101).toString(2))
