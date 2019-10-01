@@ -65,3 +65,40 @@ function flipBit(n) {
 
 // console.log(flipBit(1775))
 
+// 5.4 Next Number
+
+function nextNumber(num) {
+    const string = num.toString(2).split("");
+    let firstOne, firstZero, lastOne, lastZero;
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] === '1' && firstOne === undefined) firstOne = i;
+        if (string[i] === '0' && firstZero === undefined) firstZero = i;
+        if (string[string.length - i - 1] === '1' && lastOne === undefined) lastOne = string.length - i - 1;
+        if (string[string.length - i - 1] === '0' && lastZero === undefined) lastZero = string.length - i - 1;
+        if (firstOne && firstZero && lastOne && lastZero) break;
+    }
+
+    console.log(string);
+
+    console.log(firstOne)
+    console.log(firstZero)
+    console.log(lastOne)
+    console.log(lastZero)
+
+    let nextSmall = string.slice(0);
+    let nextLarge = string.slice(0);
+
+    [nextSmall[firstOne], nextSmall[lastZero]] = [nextSmall[lastZero], nextSmall[firstOne]];
+    [nextLarge[firstZero], nextLarge[lastOne]] = [nextLarge[lastOne], nextLarge[firstZero]];
+
+    console.log(nextSmall);
+    console.log(nextLarge);
+
+    nextSmall = nextSmall.join("")
+    nextLarge = nextLarge.join("")
+
+    console.log(parseInt(nextSmall, 2));
+    console.log(parseInt(nextLarge, 2));
+}
+
+nextNumber(75);
