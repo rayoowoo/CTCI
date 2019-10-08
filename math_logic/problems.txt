@@ -15,7 +15,7 @@ That should be the heavy bottle.
 You have a basketball hoop and someone says that you can play one of two games.
     Game 1: You get one shot to make the hoop.
     Game 2: You get three shots and you have to make two of three shots.
-If p is the probability of making a particular shot, for which values of p should you pick one game or the other ?
+If p is the probability of making a particular shot, for which values of p should you pick one game or the other?
 
 A: 
 Basically, we have to calculate the probability of missing 0 or 1 balls. That's fairly simple: (1-p) per ball, 
@@ -63,3 +63,14 @@ in binary:
 111 - ants don't meet. 
 
 The general rule is 1 - 2 * (0.5n), where n is the number of ants. 
+
+
+----------------------------------------------
+
+6.5 Jugs of Water
+You have a five-quart jug, a three-quart jug, and an unlimited supply of water (but no measuring cups). How would you 
+come up with exactly four quarts of water? Note that the jugs are oddly shaped, such that filling up exactly "half" 
+of the jug would be impossible.
+
+A:
+Fill up the three quart jug. Pour that into the five quart jug. Then fill the three quart jug again. This time, only pour until the five quart jug is full. That should leave only one quart of water in the three quart jug. 
