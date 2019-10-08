@@ -73,4 +73,19 @@ come up with exactly four quarts of water? Note that the jugs are oddly shaped, 
 of the jug would be impossible.
 
 A:
-Fill up the three quart jug. Pour that into the five quart jug. Then fill the three quart jug again. This time, only pour until the five quart jug is full. That should leave only one quart of water in the three quart jug. 
+Fill up the three quart jug. Pour that into the five quart jug. Then fill the three quart jug again.
+This time, only pour until the five quart jug is full. That should leave only one quart of water in the three quart jug. 
+
+
+----------------------------------------------
+
+6.6 Blue-Eyed Island
+A bunch of people are living on an island, when a visitor comes with a strange order: all blue-eyed people must leave the
+island as soon as possible. There will be a flight out at 8:00pm every evening. Each person can see everyone else's eye color,
+but they do not know their own (nor is anyone allowed to tell them). Additionally, they do not know how many people have blue
+eyes, although they do know that at least one person does. How many days will it take the blue-eyed people to leave?
+
+A:
+If there's only one person with blue eyes, it will take them one day, given that in a day, he or she can look at everyone
+else's eyes. If there is more than one person with blue eyes, I don't think they'll ever leave without knowing how many
+people on the island have blue eyes. 
