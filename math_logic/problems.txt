@@ -89,3 +89,35 @@ A:
 If there's only one person with blue eyes, it will take them one day, given that in a day, he or she can look at everyone
 else's eyes. If there is more than one person with blue eyes, I don't think they'll ever leave without knowing how many
 people on the island have blue eyes. 
+
+
+-----------------------------------------------
+
+6.7 The Apocalypse
+In the new post-apocalyptic world, the world queen is desperately concerned about the birth rate. Therefore, she decrees 
+that all families should ensure that they have one girl or else they face massive fines. If all families abide by this
+policy - that is, they have to continue to have children until they have one girl, at which point they immediately stop -
+what will the gender ratio of the new generation be? (Assume the odds of someone having a boy or a girl on any given
+pregnancy is equal.) Solve this out logically and then write a computer simulation of it.  
+
+
+The answer is 50%. If you have 50% girls and 50% boys in one birth, then 50% of that 50% will be girls in the second birth,
+along with 50% boys. And that cycle keeps repeating and repeating. Therefore, you will end up with 50% girls and 50% boys. 
+
+function apocalypse(n) {
+    let boys = 0;
+    let girls = 0;
+    for (let i = 0; i < n; i++) {
+        let j = Infinity;
+        while (j >= 0.5) {
+            j = Math.random();
+            if (j >= 0.5) boys++;
+            if (j < 0.5) girls++;
+        }
+    }
+    return boys/girls;
+}
+
+The simulation is to pick a number at random from 0 to 1. if the number is less than 0.5, increment a boy. Otherwise, 
+increment a girl. Do this until you get a girl. The number of total cycles this happens represents how many families 
+there are. The higher the number, generally, the closer the two are proportionately. 
