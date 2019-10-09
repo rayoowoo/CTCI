@@ -8,6 +8,10 @@ Assuming we know the measurements of the bottles (or that they are all the same)
 bottles on one at a time, until we load a bottle on that increases the weight by more than expected.
 That should be the heavy bottle.
 
+Solution:
+if we take 1 pill from bottle 1, and 2 from bottle 2, then the decimal amount over 210grams / 0.1 grams would
+give the bottle #. 
+
 
 ----------------------------------------------
 
@@ -131,8 +135,34 @@ There is a building of 100 floors. If an egg drops from the Nth floor or above, 
 any floor below, it will not break. You're given two eggs. Find N, while minimizing the number of drops for the worst case.
 
 A:
-I believe this is a binary-search type solution. You start with floor 50. If the egg breaks, it's lower. If it doesn't
-break, it is higher. Eventually, you eliminate half of the remaining floors per step until you reach floor N, where the
-egg will break. 
+You drop on even floors. If it breaks, drop on the floor underneath. The one underneath is N. 
+
+Solution: 
+The solution involves considering load balancing. Of course, if we wanted to minimize the number of drops on the first egg,
+we could start with floor 50, and then perhaps 75. And then on the second egg, go up one by one. Or, we could minimize th
+number of drops on the second egg, which means going up two at a time for the first egg, and then dropping the second egg
+only once. The real minimum number of drops overall would be when the number of drops on both eggs is equal. We would need
+to take the approach that for every subsequent drop on the first egg, we would decrease the number of floors we go up. So
+if we start at floor 10, we would go to floor 19, then 28, etc. So what floor should we start on? 
+
+If we do the math, it's floor 14. 
 
 
+----------------------------------------------
+
+6.9 100 Lockers
+There are 100 closed lockers in a hallway. A man begins by opening all 100 lockers. Next, he closes every second locker.
+Then, on his third pass, he toggles every third locker (closes it if it is open or opens if it is closed). This process
+continues for 100 passes, such that on each pass I, the man toggles every ith locker. After his 100th pass in the hallway,
+in which he toggles only locker #100, how many lockers are open?
+
+A:
+One observation I can make is that after 50, the man is only toggling one locker every pass: the ith locker. 
+All prime numbered lockers will be closed, because they are opened once for the first pass, and then closed for pass i. 
+The first locker will definitely be open. 
+If the number is a square of a number, it will be open. (1, sqrt, itself). 
+If the number is a product of two primes, it will be closed. (1, pr 1, pr 2, itself).
+
+There should be 10 lockers open, because only perfect square number lockers are left open.  This is because any number that
+has an even number of factors will be closed: this is most numbers, including primes.
+(1, 4, 9, 16, 25, 36, 49, 64, 81, 100)
