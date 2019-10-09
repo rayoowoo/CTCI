@@ -91,7 +91,7 @@ else's eyes. If there is more than one person with blue eyes, I don't think they
 people on the island have blue eyes. 
 
 
------------------------------------------------
+----------------------------------------------
 
 6.7 The Apocalypse
 In the new post-apocalyptic world, the world queen is desperately concerned about the birth rate. Therefore, she decrees 
@@ -118,6 +118,21 @@ function apocalypse(n) {
     return boys/girls;
 }
 
+A:
 The simulation is to pick a number at random from 0 to 1. if the number is less than 0.5, increment a boy. Otherwise, 
 increment a girl. Do this until you get a girl. The number of total cycles this happens represents how many families 
 there are. The higher the number, generally, the closer the two are proportionately. 
+
+
+----------------------------------------------
+
+6.8 The Egg Drop Problem
+There is a building of 100 floors. If an egg drops from the Nth floor or above, it will break. If it's dropped from
+any floor below, it will not break. You're given two eggs. Find N, while minimizing the number of drops for the worst case.
+
+A:
+I believe this is a binary-search type solution. You start with floor 50. If the egg breaks, it's lower. If it doesn't
+break, it is higher. Eventually, you eliminate half of the remaining floors per step until you reach floor N, where the
+egg will break. 
+
+
