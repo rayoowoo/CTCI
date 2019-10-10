@@ -266,3 +266,83 @@ class Book {
     }
 }
 
+// 7.6 Jigsaw
+// Implement an NxN jigsaw puzzle. Design the data structures and explain an algorithm to solve the puzzle. You 
+// can assume that you have a fitsWith method which, when passed two puzzle edges, returns true if the two edges
+// belong together.
+
+class Jigsaw {
+    constructor(size) {
+        this.puzzle = [];
+        this.size = size;
+        this.mixedPieces = [];
+    }
+
+    fitsWith(edge1, edge2) {
+        // returns true if two edge belong together. 
+    }
+
+    fillPuzzle() {
+        for (let i = 0; i < this.size; i++) {
+            const row = [];
+            for (let j = 0; j < this.size; j++) {
+                const piece = new Piece();
+                if (!i && !j) piece.upperLeft = true;
+                row.push(piece);
+            }
+            this.puzzle.push(row);
+        }
+    }
+
+    makePuzzle() {
+        this.fillPuzzle();
+        for (let i = 0; i < this.size; i++) {
+            for (let j = 0; j < this.size; j++) {
+                if (i !== 0) this.puzzle[i][j].top = this.puzzle[i - 1][j]; // if it's not the top row, it has a top piece
+                if (i !== this.size - 1) this.puzzle[i][j].bottom = this.puzzle[i + 1][j]; // if it's not the bottom row, it has a bottom piece
+                if (j !== 0) this.puzzle[i][j].left = this.puzzle[i][j - 1]; // if it is not the leftmost row, it has a left piece
+                if (j !== this.size - 1) this.puzzle[i][j].right = this.puzzle[i][j + 1]; // if it is not the rightmost row, it has a right piece
+            }
+        }
+        this.puzzle = this.puzzle.flatten(); // flattening the 2d array into a list of the pieces. 
+        this.mixedPieces = this.puzzle.deepDup().shuffle(); // deep duplicate, shuffled for solving later. 
+    }
+
+    check(pieces) {
+        // some code to determine if the set of pieces passed into this method matches the original puzzle.
+    }
+
+    solve() {
+        // first find the upperleft piece
+        const upperLeft = this.mixedPieces.filter(el => el.upperLeft)[0];
+        const solution = [upperLeft];
+        let forward = true;
+        while (solution.length < this.size * this.size) {
+            // when forward, look for this.right's. when backward, look for this.lefts. 
+            for (let i = 0; i < this.mixedPieces.length; i++) {
+                const last = solution.length - 1;
+                if (solution.length % this.size === 0) { // the edge pieces need to check for the bottom pieces
+                    if (this.mixedPieces[i] === solution[last].bottom) {
+                        solution.push(this.mixedPieces[i])
+                        forward = forward ? false : true; // at the end of the row, we need to now look backwards.
+                    }
+                } else if (forward) {
+                    if (this.mixedPieces[i] === solution[last].right) {
+                        solution.push(this.mixedPieces[i])
+                    }
+                } else if (!forward) {
+                    if (this.mixedPieces[i] === solution[last].left) {
+                        solution.push(this.mixedPieces[i])
+                    }
+                }
+            }
+        }
+    }
+}
+
+class Piece {
+    constructor() {
+        this.upperLeft = false;
+        this.top = this.left = this.right = this.bottom = null;
+    }
+}
