@@ -127,3 +127,69 @@ class Employee {
 class Respondent extends Employee { }
 class Manager extends Employee { }
 class Director extends Employee{}
+
+// 7.3 Jukebox
+// Design a musical jukebox using object-oriented design.
+
+// WHO: anybody
+// WHAT: a jukebox, songs, 
+// WHERE: in a bar
+// WHEN: at night
+// WHY: to play music
+// HOW: operate the jukebox class, insert coin, press play. songs should be played at random. does it give change? can't stop 
+// mid way.
+
+class Jukebox {
+    constructor() {
+        // ideally, each song would be its own class, with a title, lyrics, and length in milliseconds. 
+        // then the play function would console.log all the lyrics line by line. 
+        this.songs = ["Mary had a little lamb", "Hot cross buns", "Ring around the rosy", "Old McDonald"];
+        this.coinTypes = [1, 5, 10, 25];
+        this.giveChange = false;
+        this.currentSession = null;
+    }
+
+    shuffle() {
+        // from https://javascript.info/task/shuffle
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [this.songs[i], this.songs[j]] = [this.songs[j], this.songs[i]];
+        }
+    }
+
+    insertCoin(coin) {
+        if (this.currentSession) {
+            if (this.currentSession.currentlyPlaying) return "Jukebox in session";
+        } else {
+            this.currentlyPlaying = new Session();
+        }
+
+        if (coin in this.coinTypes) {
+            if (this.currentSession.pay(coin)) this.playSongs();
+        } else {
+            return "Not a valid coin";
+        }
+    }
+
+    playSongs() {
+        this.shuffle();
+        for (let i = 0; i < this.songs.length; i++) {
+            setTimeout(() => console.log(this.songs[i]), i * 1000)();
+            setTimeout(that => that.currentSession = null, (factorial(that.songs.length) - 1) * 1000) // when all the songs are done playing, currentSession is null.
+        }
+    }
+}
+
+class Session {
+    constructor() {
+        this.remainingCost = 100;
+        this.currentlyPlaying = false;
+    }
+
+    pay(coin) {
+        this.remainingCost -= coin;
+        if (this.remainingCost) return false;
+        return true;
+    }
+}
+
