@@ -193,3 +193,34 @@ class Session {
     }
 }
 
+// 7.4 Parking Lot
+// Design a parking lot using object-oriented principles.
+
+// WHO: Drivers
+// WHAT: Lot, slots, cars, (assuming no need to pay)
+// WHERE: doesn't matter
+// WHEN: doesn't matter
+// WHY: doesn't matter
+
+// HOW: cars should be able to enter and exit the lot, and a counter needs to keep track of how many cars are there.
+// Cars should park in spots. 
+
+class ParkingLot {
+    constructor(spots) {
+        this.spots = spots;
+        this.openSpots = spots;
+    }
+
+    full() {
+        return !this.openSpots;
+    }
+
+    park() {
+        if (this.full()) return 'lot is full';
+        this.openSpots--;
+    }
+
+    leave() {
+        this.openSpots++;
+    }
+}
