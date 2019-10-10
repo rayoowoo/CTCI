@@ -224,3 +224,45 @@ class ParkingLot {
         this.openSpots++;
     }
 }
+
+// 7.5 Online Book Reader
+// Design the data structures for an online book reader system.
+
+// WHO: Readers
+// WHAT: A place where people can go online to read books available
+// WHERE: system
+// WHEN: anytime
+// WHY: doesn't matter
+// HOW: readers can check out books to read
+
+class BookReader {
+    constructor() {
+        this.books = new Set();
+        this.checkedOut = new Set();
+    }
+
+    stock(books) {
+        if (books instanceof Array === false) books = [books];
+        books.forEach(book => {
+            this.books.add(book); // it's alright for a book system to have multiple copies I assume
+        })
+    }
+
+    checkout(book) {
+        if (this.checkedOut.has(book)) return "Book already checked out.";
+        this.checkedOut.add(book);
+        setTimeout(() => this.checkedOut.delete(book), 5000);
+    }
+
+    return(book) {
+        if (this.checkedOut.has(book)) return this.checkedOut.delete(book);
+        return "You did not checkout this book."
+    }
+}
+
+class Book {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
