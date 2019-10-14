@@ -346,3 +346,73 @@ class Piece {
         this.top = this.left = this.right = this.bottom = null;
     }
 }
+
+// 7.7 Chat Server
+// Some hard problems are now how to ensure that only users that belong to a certain chatroom can see those message and 
+// add messages to that chatroom. Also, designing the relationship between messages and the chatroom is quite difficult.
+
+class ChatServer {
+    constructor() {
+        this.chatrooms = {};
+        this.users = new Set();
+    }
+
+    createChatroom(users) {
+        const newChatroom = new Chatroom(users);
+        this.chatrooms[users.sort()] = newChatroom;
+        users.forEach(user => this.users.add(user));
+    }
+
+    addMessage(message, chatroomID) {
+        // if the message is successfully added, the server will broadcast to the chatrooms.
+        if (chatroom in this.chatrooms) this.broadcast(message);
+    }
+
+    broadcast(message, chatroom) {
+        // some way to send update chatrooms with messages.
+        // all chatrooms will get all new messages, but only the chatroom with the right ID will get the message appended.
+        // This is assuming I have access to only 1 web socket.  
+    }
+}
+
+class Chatroom {
+    constructor(users) {
+        this.users = users.sort(); // no option to add users. like text messages.
+        this.id = users.sort().join("");
+        this.messages = []; // array of message objects
+    }
+
+    checkUser(user) {
+        return user in this.users;
+    }
+
+    addMessage(message, chatroomID) {
+        // if the message belongs to this chatroom, and the user is in this chatroom, add the message.
+        if (chatroomID === this.id && this.checkUser(message.author)) {
+            this.messages.push(message);
+            this.render();
+        }
+    }
+
+    render() {
+        return this.messages.map(el => el.content);
+    }
+}
+
+class Messages {
+    constructor(content, author) {
+        this.content = content;
+        this.author = author;
+    }
+}
+
+class Users {
+    constructor(name) {
+        this.name = name;
+    }
+
+    write(message, chatroom, chatserver) {
+        const newMessage = new Messages(message, this);
+        chatserver.addMessage(newMessage, chatroom);  
+    }
+}
