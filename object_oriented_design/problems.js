@@ -514,3 +514,42 @@ class Player {
         game.placePiece(inputPos);
     }
 }
+
+// 7.9 Circular Array
+
+class CircularArray {
+    constructor() {
+        this.array = [];
+        this.startIdx = 0;
+        this.endIdx = 0;
+    }
+
+    push(el) {
+        this.array = this.array.slice(0, this.endIdx + 1).concat([el]).concat(this.array.slice(this.endIdx + 1));
+        this.endIdx = (this.endIdx + 1) % this.array.length;
+        return el;
+    }
+
+    rotate() {
+        this.startIdx = (this.startIdx + 1) % this.array.length;
+        this.endIdx = (this.endIdx + 1) % this.array.length;
+        return this;
+    }
+
+    backward() {
+        this.startIdx--;
+        if (this.startIdx < 0) this.startIdx += this.array.length;
+        this.endIdx--;
+        if (this.endIdx < 0) this.endIdx += this.array.length;        
+        return this;
+    }
+
+    each(callback) {
+        let i;
+        for (i = this.startIdx; i !== this.endIdx; i = (i + 1) % this.array.length) {
+            callback(this.array[i]);
+        }
+        callback(this.array[i]);
+        return this;
+    }
+}
