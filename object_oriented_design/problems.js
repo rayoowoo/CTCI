@@ -365,7 +365,7 @@ class ChatServer {
 
     addMessage(message, chatroomID) {
         // if the message is successfully added, the server will broadcast to the chatrooms.
-        if (chatroom in this.chatrooms) this.broadcast(message);
+        if (chatroomID in this.chatrooms) this.broadcast(message);
     }
 
     broadcast(message, chatroom) {
@@ -414,5 +414,103 @@ class Users {
     write(message, chatroom, chatserver) {
         const newMessage = new Messages(message, this);
         chatserver.addMessage(newMessage, chatroom);  
+    }
+}
+
+// 7.8 Othello
+
+class Othello {
+    constructor() {
+        this.board = new Board();
+        this.player1 = new Player("W");
+        this.player2 = new Player("B");
+        this.currentPlayer = this.player1;
+
+    }
+
+    switchTurns() {
+        this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+    }
+
+    placePiece(pos) {
+        if (this.board.position(pos)) return "not a valid move";
+        this.board.position(pos) = this.currentPlayer.piece;
+        this.addPiece(pos);
+
+        // some method to calculate which ones get flipped
+    }
+
+    determineFlip(pos) {
+        // for a given position, you check every piece in the same row and column. 
+        // starting from the given position, find the first piece to the left of it, to the right of it, above it, and below it.
+        // any opposite color piece in between is flipped. 
+    }
+
+    addPiece(pos) {
+        // add this position to the right pieces array;
+    }
+
+    gameOver() {
+        if (this.board.full()) return true;
+        return false;
+    }
+
+    winner() {
+        return this.board.winner();
+    }
+
+    runGame() {
+        while (!gameOver) {
+            this.currentPlayer.turn(this);
+            // some game logic
+        }
+        return this.winner();
+    }
+}
+
+class Board {
+    constructor() {
+        this.grid = this.createBoard();
+        this.whitePieces = [[3, 3], [4, 4]];
+        this.blackPieces = [[3, 4], [4, 3]];
+    }
+
+    winner() {
+        return this.whitePieces.length > this.blackPieces.length ? "W" : "B";
+    }
+
+    full() {
+        return this.grid.every(row => row.every (cell => cell));
+    }
+
+    position(pos) {
+        const [row, column] = pos;
+        return this.grid[row][column];
+    }
+
+    createBoard() {
+        const grid = [];
+        for (let i = 0; i < 8; i++) {
+            const row = new Array(8).fill(null);
+            grid.push(row);
+        }
+
+        grid[3][3] = "W";
+        grid[4][4] = "W";
+        grid[3][4] = "B";
+        grid[4][3] = "B";
+        return grid;
+    }
+}
+
+class Player {
+    constructor(piece) {
+        this.piece = piece;
+    }
+
+    turn(game) {
+        // some method of getting user input and returning a position [n, m]
+        const inputPos;
+        game.placePiece(inputPos);
     }
 }
